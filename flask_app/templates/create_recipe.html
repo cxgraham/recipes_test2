@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Recipe</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Add New Recipe</h1>
+        <div class="dash_links">
+            <a href="/users/profile">Dashboard</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </div>
+    {% with messages = get_flashed_messages() %}        <!-- declare a variable called messages -->
+        {% if messages %}                               <!-- check if there are any messages -->
+            {% for message in messages %}               <!-- loop through the messages -->
+                <p>{{message}}</p>                      <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="create_recipe">
+        <form action="/recipes/create" method='post'>
+            <input type="hidden" name="user_id" value={{session.user_id}}>
+            <div class="recipe_info">
+                <label>
+                    Name:
+                    <input type="text" name="name">
+                </label>
+                <label>
+                    Description:
+                    <textarea name="description" cols="20" rows="5"></textarea>
+                </label>
+                <label>
+                    Instructions:
+                    <textarea name="instructions" cols="20" rows="5"></textarea>
+                </label>
+            </div>
+            <div class="recipe_date_and_time">
+                <label>
+                    Date Made On:
+                    <input type="date" name="date">
+                </label>
+                <label>
+                    Under 30 Minutes?
+                    <input type="radio" name="under_30_min" value="Yes" checked>Yes</input>
+                    <input type="radio" name="under_30_min" value="No">No</input>
+                </label>
+            </div>
+            <input type="submit" value="Create">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Recipe</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Edit Recipe</h1>
+        <div class="header_links">
+            <a href="/users/profile">Dashboard</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </div>
+    {% with messages = get_flashed_messages() %}        <!-- declare a variable called messages -->
+        {% if messages %}                               <!-- check if there are any messages -->
+            {% for message in messages %}               <!-- loop through the messages -->
+                <p>{{message}}</p>                      <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="recipe">
+        <form action="/recipes/update" method="post">
+        <input type="hidden" name="recipe.id" value={{recipe.id}}>
+        <div class="recipe_info">
+            <label>
+                Name:
+                <input type="text" name="name" value={{recipe.name}}>
+            </label>
+            <label>
+                Description:
+                <textarea name="description" cols="20" rows="5" value={{recipe.description}}>{{recipe.description}}</textarea>
+            </label>
+            <label>
+                Instructions:
+                <textarea name="instructions" cols="20" rows="5" value={{recipe.instructions}}>{{recipe.instructions}}</textarea>
+            </label>
+        </div>
+        <div class="recipe_date_and_time">
+            <label>
+                Date Made On:
+                <input type="date" name="date" value={{recipe.date}}>
+            </label>
+            <label>
+                Under 30 Minutes?
+                {% if recipe.under_30_min == 'Yes' %}
+                    <input type="radio" name="under_30_min" value="Yes" checked>Yes</input>
+                    <input type="radio" name="under_30_min" value="No">No</input>
+                {% else %}
+                    <input type="radio" name="under_30_min" value="Yes">Yes</input>
+                    <input type="radio" name="under_30_min" value="No" checked>No</input>
+                {% endif %}
+            </label>
+        </div>
+        <input type="submit" value="Update">
+        </form>
+    </div>
+</body>
+</html>

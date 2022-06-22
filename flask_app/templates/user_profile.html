@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Account</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome {{user.first_name}}!</h1>
+        <a href="/recipes/create">
+            <button>Create</button>
+        </a>
+        <a href="/users/logout">
+            <button>Logout</button>
+        </a>
+    </div>
+    <div class="recipes">
+        <h2>These are your recipes!</h2>
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Under 30 Minutes?</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for recipe in user.recipes %}
+                    <tr>
+                        <td>{{recipe.name}}</td>
+                        <td>{{recipe.under_30_min}}</td>
+                        <td>
+                            <a href="/recipes/view/{{recipe.id}}">View Instructions</a> |
+                            <a href="/recipes/edit/{{recipe.id}}">Edit</a> |
+                            <a href="/recipes/delete/{{recipe.id}}">Delete</a> |
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
